@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}心灵聊天室{% endblock %}
+
+{% block content %}
+<div class="card shadow">
+    <div class="card-header"><h5>💬 公共心灵聊天室</h5></div>
+    <div class="card-body" style="height:400px;overflow:auto;" id="chatBox">
+        {% for msg in msgs %}
+        <div class="border-bottom py-2">
+            <p>{{ msg.content }}</p>
+            <small class="text-muted">{{ msg.send_time.strftime('%m-%d %H:%M') }}</small>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="card-footer">
+        <div class="input-group">
+            <input type="text" id="chatInput" class="form-control" placeholder="输入聊天内容...">
+            <button class="btn btn-primary" id="sendBtn">发送</button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+$(function(){
+    // 滚动到底部
+    $("#chatBox").scrollTop($("#chatBox")[0].scrollHeight);
+
+    $("#sendBtn").click(function(){
+        let content = $("#chatInput").val().trim();
+        if(!content) return;
+        $.post("{{ url_for('chat.send') }}", {content:content}, function(res){
+            if(res.code===200){
+                location.reload();
+            }
+        })
+    })
+})
+</script>
+{% endblock %}

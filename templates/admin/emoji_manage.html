@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}表情管理{% endblock %}
+
+{% block content %}
+<div class="card shadow">
+    <div class="card-header d-flex justify-content-between">
+        <h5>系统表情包管理</h5>
+        <a href="{{ url_for('admin.index') }}" class="btn btn-sm btn-secondary">返回</a>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            {% for e in emojis %}
+            <div class="col-md-2 mb-3 text-center">
+                <img src="{{ e.emoji_url }}" class="img-fluid" style="max-height:80px;">
+                <p class="mt-2">{{ e.emoji_name }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}注册 - 云愈音{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-header text-center"><h4>用户注册</h4></div>
+            <div class="card-body">
+                <form method="POST">
+                    {{ form.hidden_tag() }}
+                    <div class="mb-3">
+                        {{ form.username.label(class="form-label") }}
+                        {{ form.username(class="form-control") }}
+                        {% for err in form.username.errors %}
+                        <div class="text-danger">{{ err }}</div>
+                        {% endfor %}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.email.label(class="form-label") }}
+                        {{ form.email(class="form-control") }}
+                        {% for err in form.email.errors %}
+                        <div class="text-danger">{{ err }}</div>
+                        {% endfor %}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.password.label(class="form-label") }}
+                        {{ form.password(class="form-control") }}
+                        {% for err in form.password.errors %}
+                        <div class="text-danger">{{ err }}</div>
+                        {% endfor %}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.repassword.label(class="form-label") }}
+                        {{ form.repassword(class="form-control") }}
+                        {% for err in form.repassword.errors %}
+                        <div class="text-danger">{{ err }}</div>
+                        {% endfor %}
+                    </div>
+                    <button type="submit" class="btn btn-success w-100">注册</button>
+                </form>
+                <div class="text-center mt-3">
+                    已有账号？<a href="{{ url_for('auth.login') }}">立即登录</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

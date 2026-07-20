@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}个人中心 - 云愈音{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-header"><h5>个人资料修改</h5></div>
+            <div class="card-body">
+                <form method="POST">
+                    {{ form.hidden_tag() }}
+                    <div class="mb-3">
+                        <label class="form-label">用户名</label>
+                        {{ form.username(class="form-control") }}
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">邮箱（不可修改）</label>
+                        <input type="text" class="form-control" value="{{ user.email }}" disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">会员等级</label>
+                        <input type="text" class="form-control" value="VIP {{ user.vip_level }}" disabled>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">保存修改</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

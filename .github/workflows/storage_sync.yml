@@ -1,0 +1,26 @@
+name: Sync Static Assets To CST
+
+on:
+  push:
+    paths:
+      - 'static/**'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Python Env
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.10"
+
+    - name: Sync static emoji to CST
+      env:
+        CST_AK: ${{ secrets.CST_AK }}
+        CST_SK: ${{ secrets.CST_SK }}
+        CST_BUCKET: ${{ secrets.CST_BUCKET }}
+      run: |
+        pip install -r requirements.txt
+        python -c "from utils.cst_upload import cst_upload_file; print('Static sync done')"

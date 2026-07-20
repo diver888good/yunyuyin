@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}管理员后台{% endblock %}
+
+{% block content %}
+<div class="card shadow p-4 text-center">
+    <h3>欢迎进入云愈音管理后台</h3>
+    <hr>
+    <div class="row mt-5">
+        <div class="col-md-4">
+            <a href="{{ url_for('admin.audio_manage') }}" class="btn btn-lg btn-info w-100">音频管理</a>
+        </div>
+        <div class="col-md-4">
+            <a href="{{ url_for('admin.emoji_manage') }}" class="btn btn-lg btn-success w-100">表情管理</a>
+        </div>
+        <div class="col-md-4">
+            <a href="{{ url_for('admin.voice_manage') }}" class="btn btn-lg btn-warning w-100">定制工单管理</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

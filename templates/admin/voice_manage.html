@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}语音定制工单{% endblock %}
+
+{% block content %}
+<div class="card shadow">
+    <div class="card-header d-flex justify-content-between">
+        <h5>用户AI音频定制工单</h5>
+        <a href="{{ url_for('admin.index') }}" class="btn btn-sm btn-secondary">返回</a>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>工单ID</th>
+                    <th>用户ID</th>
+                    <th>需求描述</th>
+                    <th>状态</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for d in demands %}
+                <tr>
+                    <td>{{ d.id }}</td>
+                    <td>{{ d.user_id }}</td>
+                    <td>{{ d.demand_text }}</td>
+                    <td>
+                        {% if d.status == 0 %}
+                        <span class="badge bg-warning">待生成</span>
+                        {% elif d.status == 1 %}
+                        <span class="badge bg-success">已完成</span>
+                        {% else %}
+                        <span class="badge bg-danger">已驳回</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

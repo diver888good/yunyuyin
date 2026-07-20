@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %}音频管理{% endblock %}
+
+{% block content %}
+<div class="card shadow">
+    <div class="card-header d-flex justify-content-between">
+        <h5>音频资源管理</h5>
+        <a href="{{ url_for('admin.index') }}" class="btn btn-sm btn-secondary">返回后台首页</a>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>标题</th>
+                    <th>分类</th>
+                    <th>播放量</th>
+                    <th>VIP专属</th>
+                    <th>前台展示</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in pagination.items %}
+                <tr>
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.title }}</td>
+                    <td>{{ item.category }}</td>
+                    <td>{{ item.play_count }}</td>
+                    <td>{{ "是" if item.is_vip else "否" }}</td>
+                    <td>{{ "是" if item.is_show else "否" }}</td>
+                    <td>
+                        <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#edit{{item.id}}">编辑</button>
+                    </td>
+                </tr>
+
+                <!-- 编辑弹窗 -->
+                <div class="modal fade" id="edit{{item.id}}">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <form method="POST" action="{{ url_for('admin.audio_edit', aid=item.id) }}">
+                                <div class="modal-header">
+                                    <h5>编辑音频</h5>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        <label>标题</label>
+                                        <input type="text" class="form-control" name="title" value="{{ item.title }}">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label>分类</label>
+                                        <input type="text" class="form-control" name="category" value="{{ item.category }}">
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="is_vip" {% if item.is_vip %}checked{% endif %}>
+                                        <label class="form-check-label">VIP专属</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="is_show" {% if item.is_show %}checked{% endif %}>
+                                        <label class="form-check-label">前台展示</label>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+                                    <button type="submit" class="btn btn-primary">保存</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

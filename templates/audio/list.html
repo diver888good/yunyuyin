@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}疗愈音频列表 - 云愈音{% endblock %}
+
+{% block content %}
+<div class="card shadow p-4">
+    <h4>🎵 疗愈音频库</h4>
+    <hr>
+    <div class="row">
+        {% for item in pagination.items %}
+        <div class="col-md-3 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ item.title }}</h5>
+                    <p class="card-text text-muted">分类：{{ item.category }}</p>
+                    <p class="card-text">播放量：{{ item.play_count }}</p>
+                    {% if item.is_vip %}
+                    <span class="badge bg-warning">VIP专属</span>
+                    {% endif %}
+                </div>
+                <div class="card-footer">
+                    <a href="{{ url_for('audio.play', aid=item.id) }}" class="btn btn-sm btn-success w-100">立即播放</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- 分页 -->
+    <nav>
+        <ul class="pagination justify-content-center">
+            {% if pagination.has_prev %}
+            <li class="page-item"><a class="page-link" href="{{ url_for('audio.audio_list', page=pagination.prev_page) }}">上一页</a></li>
+            {% endif %}
+            {% for p in pagination.iter_pages(left_edge=1, right_edge=1, left_current=2, right_current=2) %}
+                {% if p %}
+                <li class="page-item {% if p == pagination.page %}active{% endif %}">
+                    <a class="page-link" href="{{ url_for('audio.audio_list', page=p) }}">{{ p }}</a>
+                </li>
+                {% endif %}
+            {% endfor %}
+            {% if pagination.has_next %}
+            <li class="page-item"><a class="page-link" href="{{ url_for('audio.audio_list', page=pagination.next_page) }}">下一页</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+{% endblock %}

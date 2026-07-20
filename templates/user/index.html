@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}首页 - 云愈音{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card shadow p-4">
+            <h3>欢迎来到 云愈音 音乐疗愈平台</h3>
+            <p class="text-muted">专注治愈身心、放松减压、睡眠疗愈音乐</p>
+            <hr>
+            <div class="row mt-4">
+                <div class="col-md-4">
+                    <a href="{{ url_for('audio.audio_list') }}" class="btn btn-info w-100 py-3">🎵 聆听疗愈音频</a>
+                </div>
+                <div class="col-md-4">
+                    <a href="{{ url_for('chat.index') }}" class="btn btn-secondary w-100 py-3">💬 心灵聊天室</a>
+                </div>
+                <div class="col-md-4">
+                    <a href="{{ url_for('user.profile') }}" class="btn btn-primary w-100 py-3">👤 个人中心</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

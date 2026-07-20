@@ -1,0 +1,34 @@
+name: Deploy to PythonAnywhere
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Deploy to PythonAnywhere
+      uses: sebastianpopp/remote-file-action@v2
+      with:
+        host: ${{ secrets.PA_HOST }}
+        username: ${{ secrets.PA_USER }}
+        key: ${{ secrets.PA_SSH_KEY }}
+        source: ./
+        target: /home/music6/yunyuyin
+        exclude: |
+          .env
+          logs/
+          instance/
+
+    - name: Reload Website
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.PA_HOST }}
+        username: ${{ secrets.PA_USER }}
+        key: ${{ secrets.PA_SSH_KEY }}
+        script: |
+          cd /home/music6/yunyuyin
+          bash pa_reload.sh

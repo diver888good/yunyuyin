@@ -1,0 +1,45 @@
+version: "3.8"
+
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    env_file:
+      - .env
+    volumes:
+      - ./logs:/app/logs
+    depends_on:
+      - redis
+    restart: always
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: always
+
+  celery_worker:
+    build: .
+    env_file:
+      - .env
+    command: celery -A app.celery worker --loglevel=info
+    depends_on:
+      - web
+      - redis
+    restart: always
+
+  celery_beat:
+    build: .
+    env_file:
+      - .env
+    command: celery -A app.celery beat --loglevel=info
+    depends_on:
+      - web
+      - redis
+    restart: always
+
+volumes:
+  redis_data:
