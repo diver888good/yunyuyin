@@ -1,14 +1,27 @@
-from .auth import auth_bp
-from .user import user_bp
-from .audio import audio_bp
-from .chat import chat_bp
-from .voice import voice_bp
-from .admin import admin_bp
+from flask import Flask
+from extensions import db, migrate, login_manager, redis_store, celery
+from config import config_map
 
-def register_all_blueprint(app):
-    app.register_blueprint(auth_bp, url_prefix="/auth")
-    app.register_blueprint(user_bp, url_prefix="/user")
-    app.register_blueprint(audio_bp, url_prefix="/audio")
-    app.register_blueprint(chat_bp, url_prefix="/chat")
-    app.register_blueprint(voice_bp, url_prefix="/voice")
-    app.register_blueprint(admin_bp, url_prefix="/admin")
+def create_app(env="development"):
+    app = Flask(__name__)
+    app.config.from_object(config_map[env])
+
+    # 初始化所有扩展
+    from extensions import init_extensions
+    init_extensions(app)
+
+    # 注册蓝图（蓝图内部自带url_prefix，注册时不要传第二个参数）
+    from .auth import auth_bp
+    from .voice import voice_bp
+    app.register_blueprint(auth_bp)
+    app.register_blueprint(voice_bp)
+
+    # 新增根路由，解决首页404
+    @app.route("/")
+    def home_page():
+        return """
+        <h1>音乐疗愈平台</h1>
+        <p><a href="/auth/login">前往登录页面</a></p>
+        """
+
+    return app

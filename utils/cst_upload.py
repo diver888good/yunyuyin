@@ -8,7 +8,7 @@ CST_AK = os.getenv("CST_AK")
 CST_SK = os.getenv("CST_SK")
 CST_UPLOAD_URL = os.getenv("CST_UPLOAD_URL")
 
-def cst_upload_local_file(local_path: str, cst_key: str) -&gt; str:
+def cst_upload_local_file(local_path: str, cst_key: str) -> str:
     """上传本地文件到CST"""
     if not os.path.exists(local_path):
         return ""
@@ -16,7 +16,7 @@ def cst_upload_local_file(local_path: str, cst_key: str) -&gt; str:
         data = f.read()
     return cst_upload_file_bytes(data, cst_key)
 
-def cst_upload_file_bytes(file_bytes, cst_key: str) -&gt; str:
+def cst_upload_file_bytes(file_bytes, cst_key: str) -> str:
     """字节流上传CST"""
     files = {"file": file_bytes}
     data = {

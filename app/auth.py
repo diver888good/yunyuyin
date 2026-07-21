@@ -3,7 +3,8 @@ from flask_login import login_user, logout_user, login_required
 from forms.user_form import LoginForm, RegisterForm
 from business_service.user_service import UserService
 
-auth_bp = Blueprint("auth", __name__)
+# 【核心修复】补上路由前缀，和全局注册对应
+auth_bp = Blueprint("auth", __name__, url_prefix="/auth")
 
 @auth_bp.route("/login", methods=["GET", "POST"])
 def login():

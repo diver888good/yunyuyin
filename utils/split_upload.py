@@ -8,7 +8,7 @@ def split_save(cache_dir: str, file_md5: str, chunk_idx: int, chunk_data):
     with open(chunk_path, "wb") as f:
         f.write(chunk_data)
 
-def merge_chunk(cache_dir: str, file_md5: str, total_chunk: int, out_path: str) -&gt; bool:
+def merge_chunk(cache_dir: str, file_md5: str, total_chunk: int, out_path: str) -> bool:
     """合并所有分片"""
     chunk_paths = []
     for i in range(total_chunk):

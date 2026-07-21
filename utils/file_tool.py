@@ -1,7 +1,7 @@
 import os
 import hashlib
 
-def get_file_md5(file_path: str) -&gt; str:
+def get_file_md5(file_path: str) -> str:
     """获取文件MD5"""
     if not os.path.exists(file_path):
         return ""

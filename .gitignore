@@ -31,3 +31,4 @@ Thumbs.db
 # 部署缓存
 *.zip
 *.tar.gz
+config.py

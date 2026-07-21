@@ -1,4 +1,5 @@
-from app import celery
+# 把 from app import celery 替换为从extensions导入
+from extensions import celery
 from business_service.voice_demand_service import VoiceDemandService
 from utils.storage_path import get_custom_audio_path
 from utils.cst_upload import cst_upload_local_file

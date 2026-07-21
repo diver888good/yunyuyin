@@ -28,7 +28,7 @@ def get_temp_cache_path():
 def get_migrate_temp_path():
     return "migrate_temp"
 
-def get_cst_full_url(key: str) -&gt; str:
+def get_cst_full_url(key: str) -> str:
     """拼接完整CDN地址"""
     if key.startswith("http"):
         return key

@@ -2,7 +2,7 @@ import os
 import gzip
 import subprocess
 from datetime import datetime
-from app import celery
+from extensions import celery
 from utils.cst_upload import cst_upload_file_bytes
 from business_service.backup_record_service import BackupRecordService
 
